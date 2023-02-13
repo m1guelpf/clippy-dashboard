@@ -68,6 +68,7 @@ const DropdownMenu: FC<Props> = ({ items, children }) => {
 													'text-gray-400 focus:bg-gray-50 dark:text-gray-500 dark:focus:bg-gray-900'
 												)}
 											>
+												{/* @ts-ignore-next-line */}
 												<Icon className="mr-2 h-4 w-4" />
 												<span className="flex-grow text-gray-700 dark:text-gray-300">
 													{label}
