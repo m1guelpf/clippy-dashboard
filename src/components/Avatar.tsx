@@ -47,7 +47,7 @@ export const TEXT_COLORS = [
 	'192251',
 ]
 
-const Avatar: FC<{ name: string }> = ({ name }) => {
+const Avatar: FC<{ name?: string }> = ({ name }) => {
 	const userInitials = useMemo<string>(() => {
 		if (!name) return ''
 		if (!name.includes(' ')) return name.slice(0, 2)

@@ -61,7 +61,7 @@ export class AleaGen {
 }
 
 export class MersenneTwister {
-	seed: number
+	seed: number | undefined
 	N = 624
 	M = 397
 	MATRIX_A = 0x9908b0df /* constant vector a */
@@ -213,7 +213,7 @@ const minMax = ({ random, min, max }: Range & { random: number }) => {
 	return Math.floor(random * (max - min + 1) + min)
 }
 
-export const randomFromVal = ({ value, min, max }: Range & { value: string }) => {
+export const randomFromVal = ({ value, min, max }: Range & { value?: string }) => {
 	const prepareSeed = new AleaGen(value)
 	const seedOutput = prepareSeed.s1 * 10000000
 
