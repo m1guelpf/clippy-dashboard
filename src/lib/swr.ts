@@ -19,5 +19,5 @@ export const fetcher = async <JSON = any>(input: RequestInfo, init?: RequestInit
 		throw new SWRError('Something went wrong!', 500)
 	}
 
-	return res.json()
+	return res.json().catch(() => ({}))
 }

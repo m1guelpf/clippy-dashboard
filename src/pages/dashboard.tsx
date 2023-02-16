@@ -4,14 +4,18 @@ import useTeam from '@/hooks/swr/useTeam'
 import useAuth from '@/hooks/swr/useAuth'
 import { getFirstName } from '@/lib/utils'
 import Balancer from 'react-wrap-balancer'
+import ProjectPanel from '@/components/Panels/ProjectPanel'
 import DotsHorizontal from '@/components/icons/DotsHorizontal'
+import { getOpenFor, useProjectPanel } from '@/store/projectPanel'
 
 const DashboardPage = () => {
 	const { team } = useTeam()
 	const { user } = useAuth()
+	const openFor = useProjectPanel(getOpenFor)
 
 	return (
 		<Layout pageTitle="Projects">
+			<ProjectPanel />
 			<h1 className="text-2xl text-black font-medium mb-2">
 				Welcome back, {getFirstName(user?.displayName) ?? 'friend!'}
 			</h1>
@@ -38,7 +42,10 @@ const DashboardPage = () => {
 							<p className="text-black">{project.name}</p>
 							<p className="text-black/40">{project.origins.join(', ')}</p>
 						</div>
-						<button className=" inline-flex items-center justify-center rounded hover:bg-gray-text/10 transition">
+						<button
+							onClick={() => openFor(project.id)}
+							className=" inline-flex items-center justify-center rounded hover:bg-gray-50 transition"
+						>
 							<DotsHorizontal className="w-8 h-8 text-gray-text" />
 						</button>
 					</div>

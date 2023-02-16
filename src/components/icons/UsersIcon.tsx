@@ -2,11 +2,11 @@ const UsersIcon = ({ className = '' }) => (
 	<svg
 		className={className}
 		fill="none"
+		strokeWidth="1.5"
 		viewBox="0 0 24 24"
 		stroke="currentColor"
-		stroke-linecap="round"
-		stroke-linejoin="round"
-		stroke-width="1.5"
+		strokeLinecap="round"
+		strokeLinejoin="round"
 	>
 		<circle cx="9.5" cy="7.5" r="2.75" />
 		<path d="M14.75 10.25C16.2688 10.25 17.25 9.01878 17.25 7.5C17.25 5.98122 16.2688 4.75 14.75 4.75" />
