@@ -9,13 +9,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
 	return (
 		<>
 			<Toaster />
-			<SWRConfig
-				value={{
-					fetcher,
-					shouldRetryOnError: false,
-					revalidateOnFocus: false,
-				}}
-			>
+			<SWRConfig value={{ fetcher, shouldRetryOnError: false, revalidateOnFocus: false }}>
 				<Suspense fallback={null}>
 					<Component {...pageProps} />
 				</Suspense>

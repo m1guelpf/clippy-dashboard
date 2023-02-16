@@ -1,5 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+	images: {
+		remotePatterns: [
+			{
+				hostname: '**',
+			},
+		],
+	},
 	redirects: async () => {
 		return [
 			{ source: '/', destination: 'https://tally.so/r/waOVMy', permanent: false },

@@ -65,7 +65,7 @@ const Avatar: FC<{ name?: string }> = ({ name }) => {
 
 	return (
 		<div
-			className="w-8 h-8 rounded-full border-2 border-white flex items-center justify-center shadow"
+			className="w-9 h-9 rounded-full border-2 border-white flex items-center justify-center shadow"
 			style={{ backgroundColor: `#${BACKGROUND_COLORS[colorKey]}` }}
 		>
 			<p className="font-medium text-xs" style={{ color: `#${TEXT_COLORS[colorKey]}` }}>

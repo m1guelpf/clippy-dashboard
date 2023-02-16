@@ -40,3 +40,7 @@ export const random = (min: number, max: number): number => {
 export const toHumanTime = (date: Date | string): string => {
 	return dayjs(date).fromNow()
 }
+
+export const getFirstName = (name?: string): string | undefined => {
+	return name?.split(' ')?.[0]
+}
