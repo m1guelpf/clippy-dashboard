@@ -5,6 +5,7 @@ import OriginManager from '../OriginManager'
 import InputWithLabel from '../InputWithLabel'
 import useProject from '@/hooks/swr/useProject'
 import { withPreventDefault } from '@/lib/utils'
+import ModelTypeSelector from '../ModelTypeSelector'
 import TrashIcon from '@/components/icons/TrashIcon'
 import { ProjectPanelState, useProjectPanel } from '@/store/projectPanel'
 
@@ -69,6 +70,7 @@ const ProjectPanel = () => {
 				<InputWithLabel label="Name" id="name" value={name} onChange={setName} required />
 				<InputWithLabel label="Image URL" type="url" id="image-url" value={imageUrl} onChange={setImageUrl} />
 				<OriginManager />
+				<ModelTypeSelector />
 			</div>
 		</SlidePanel>
 	)
