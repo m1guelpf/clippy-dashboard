@@ -1,15 +1,15 @@
 import Link from 'next/link'
-import Avatar from './Avatar'
 import toast from 'react-hot-toast'
+import { motion } from 'framer-motion'
 import { useRouter } from 'next/router'
 import Wordmark from './icons/Wordmark'
 import MenuIcon from './icons/MenuIcon'
 import { classNames } from '@/lib/utils'
+import TeamSwitcher from './TeamSwitcher'
 import UsersIcon from './icons/UsersIcon'
 import useAuth from '@/hooks/swr/useAuth'
 import useTeam from '@/hooks/swr/useTeam'
 import BookmarkIcon from './icons/BookmarkIcon'
-import ChevronUpIcon from './icons/ChevronUpIcon'
 import FeedbackModal from './modals/FeedbackModal'
 import { FC, PropsWithChildren, useEffect } from 'react'
 
@@ -67,33 +67,15 @@ const Layout: FC<Props> = ({ pageTitle, children }) => {
 							</nav>
 						</div>
 					</div>
-					<div className="pb-2 border-r text-center">
+					<motion.div layout="position" className="pb-2 border-r text-center">
 						<a
 							href="mailto:miguel@clippy.help?subject=Clippy+Feedback"
 							className="text-gray-400 text-sm hover:underline"
 						>
 							Have some feedback?
 						</a>
-					</div>
-					<button
-						onClick={() => toast.error('Coming soon!')}
-						className="group flex items-center border-t border-r shadow-sm py-3 px-4"
-					>
-						<div>
-							<Avatar name={team?.name} />
-						</div>
-						<div className="ml-3 min-w-0 flex-1 text-left">
-							<p className="text-sm font-medium text-gray-700 group-hover:text-gray-900 whitespace-nowrap truncate">
-								{team?.name}
-							</p>
-							<p className="text-xs text-gray-400/80 group-hover:text-gray-400 transition">
-								Click to change team
-							</p>
-						</div>
-						<div>
-							<ChevronUpIcon className="w-5 h-5 text-gray-400 group-hover:text-gray-700 transition" />
-						</div>
-					</button>
+					</motion.div>
+					<TeamSwitcher />
 				</div>
 				<div className="flex flex-1 flex-col md:pl-64">
 					<main className="flex-1 md:pl-6 lg:pl-32 md:mt-11">

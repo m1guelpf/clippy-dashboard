@@ -4,13 +4,13 @@ import PlusIcon from './icons/PlusIcon'
 import TrashIcon from './icons/TrashIcon'
 import InputWithLabel from './InputWithLabel'
 import { withPreventDefault } from '@/lib/utils'
-import { FormEvent, useCallback, useRef, useState } from 'react'
 import { ProjectPanelState, useProjectPanel } from '@/store/projectPanel'
+import { FormEvent, useCallback, useEffect, useRef, useState } from 'react'
 
 const getStore = (store: ProjectPanelState) => ({ origins: store.origins, setOrigins: store.setOrigins })
 
 const OriginManager = () => {
-	const ref = useRef<HTMLInputElement>(null)
+	const inputRef = useRef<HTMLInputElement>(null)
 	const [origin, setOrigin] = useState('')
 	const { origins, setOrigins } = useProjectPanel(getStore)
 
@@ -23,6 +23,13 @@ const OriginManager = () => {
 		setOrigin('')
 		setOrigins([...origins, origin])
 	}, [origin, origins, setOrigins])
+
+	useEffect(() => {
+		if (!inputRef.current) return
+
+		if (origins.length === 0) inputRef.current.setCustomValidity('You must add at least one origin.')
+		else inputRef.current.setCustomValidity('')
+	}, [origins])
 
 	return (
 		<div>
@@ -48,14 +55,14 @@ const OriginManager = () => {
 				))}
 				<div className="flex items-center justify-between mt-2 relative group">
 					<input
-						ref={ref}
+						ref={inputRef}
 						type="text"
 						value={origin}
 						placeholder="docs.hop.io"
 						onChange={e => setOrigin(e.target.value)}
 						className="px-3 py-2 w-full border-gray-300 rounded-lg shadow-sm focus:border-gray-600 focus:ring-gray-600"
 						onKeyDown={e => {
-							if (e.key === 'Enter') {
+							if (e.key === 'Enter' && origin) {
 								e.preventDefault()
 								addOrigin()
 							}

@@ -1,9 +1,7 @@
 import Button from '../Button'
-import { useEffect } from 'react'
 import SlidePanel from '../SlidePanel'
 import OriginManager from '../OriginManager'
 import InputWithLabel from '../InputWithLabel'
-import useProject from '@/hooks/swr/useProject'
 import { withPreventDefault } from '@/lib/utils'
 import ModelTypeSelector from '../ModelTypeSelector'
 import TrashIcon from '@/components/icons/TrashIcon'
@@ -19,40 +17,47 @@ const getStore = (state: ProjectPanelState) => ({
 	setImageUrl: state.setImageUrl,
 	setName: state.setName,
 	projectId: state.projectId,
-	onProject: state.onProjectLoaded,
 	updateProject: state.updateProject,
 	deleteProject: state.deleteProject,
+	createProject: state.createProject,
+	isCreating: !state.projectId,
 })
 
 const ProjectPanel = () => {
-	const { name, setName, open, onClose, projectId, onProject, imageUrl, setImageUrl, updateProject, deleteProject } =
-		useProjectPanel(getStore)
-	const { project } = useProject(projectId)
-
-	useEffect(() => {
-		if (!project || !open) return
-
-		onProject(project)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [open, project])
+	const {
+		name,
+		open,
+		setName,
+		onClose,
+		imageUrl,
+		isCreating,
+		setImageUrl,
+		updateProject,
+		deleteProject,
+		createProject,
+	} = useProjectPanel(getStore)
 
 	return (
 		<SlidePanel
 			open={open}
 			onClose={onClose}
-			onSubmit={withPreventDefault(updateProject)}
-			title="Project Settings"
+			onSubmit={withPreventDefault(isCreating ? createProject : updateProject)}
+			title={isCreating ? 'Create Project' : 'Project Settings'}
 			subtitle="Update your project's name, where it'll show up and the look and feel of the widget."
 			footer={
 				<div className="flex items-center justify-between">
-					<button
-						type="button"
-						onClick={deleteProject}
-						className="px-3 py-2 hover:bg-red-100 text-red-500 rounded-lg transition flex items-center space-x-1"
-					>
-						<TrashIcon className="w-5 h-5" />
-						<span>Delete</span>
-					</button>
+					{!isCreating ? (
+						<button
+							type="button"
+							onClick={deleteProject}
+							className="px-3 py-2 hover:bg-red-100 text-red-500 rounded-lg transition flex items-center space-x-1"
+						>
+							<TrashIcon className="w-5 h-5" />
+							<span>Delete</span>
+						</button>
+					) : (
+						<div />
+					)}
 					<div className="flex items-center space-x-2">
 						<button
 							type="button"
@@ -61,7 +66,7 @@ const ProjectPanel = () => {
 						>
 							Cancel
 						</button>
-						<Button type="submit">Update</Button>
+						<Button type="submit">{isCreating ? 'Create' : 'Update'}</Button>
 					</div>
 				</div>
 			}

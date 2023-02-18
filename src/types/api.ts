@@ -21,13 +21,13 @@ export type TeamWithMembers = Team & { members: User[] }
 export type TeamWithProjects = Team & { projects: Project[] }
 
 export enum ModelType {
-	METAL = 'Metal',
-	PLASTIC = 'Plastic',
+	Metal = 'Metal',
+	Plastic = 'Plastic',
 }
 
 export enum ProjectStatus {
-	PENDING = 'pending',
-	TRAINED = 'trained',
+	Pending = 'Pending',
+	Trained = 'Trained',
 }
 
 export type Project = {

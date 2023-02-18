@@ -1,24 +1,41 @@
 import { ModelType } from '@/types/api'
 import { classNames } from '@/lib/utils'
+import { useEffect, useRef } from 'react'
 import { RadioGroup } from '@headlessui/react'
 import { ProjectPanelState, useProjectPanel } from '@/store/projectPanel'
 
 type Plan = { name: ModelType; description: string }
 
 const models: Plan[] = [
-	{ name: ModelType.METAL, description: 'The default model, with the best accuracy.' },
-	{ name: ModelType.PLASTIC, description: 'A faster model, with slightly lower accuracy.' },
+	{ name: ModelType.Metal, description: 'The default model, with the best accuracy.' },
+	{ name: ModelType.Plastic, description: 'A faster model, with slightly lower accuracy.' },
 ]
 
 const getStore = (state: ProjectPanelState) => ({ modelType: state.model_type, setModelType: state.setModelType })
 
 const ModelTypeSelector = () => {
+	const inputRef = useRef<HTMLInputElement>(null)
 	const { modelType, setModelType } = useProjectPanel(getStore)
 
+	useEffect(() => {
+		if (!inputRef.current) return
+
+		if (modelType) inputRef.current.setCustomValidity('')
+		else inputRef.current.setCustomValidity('Please select a model type.')
+	}, [modelType])
+
 	return (
-		<RadioGroup value={modelType} onChange={setModelType}>
+		<RadioGroup className="relative" name="model" value={modelType} onChange={setModelType}>
+			<input
+				type="text"
+				name="model"
+				ref={inputRef}
+				onChange={() => {}}
+				value={modelType ?? ''}
+				className="absolute opacity-0 w-0 h-0"
+			/>
 			<RadioGroup.Label className="block text-sm font-medium text-gray-700">Clippy Model</RadioGroup.Label>
-			<div className="mt-1 space-y-4">
+			<div className="mt-2 space-y-2">
 				{models.map(model => (
 					<RadioGroup.Option
 						key={model.name}

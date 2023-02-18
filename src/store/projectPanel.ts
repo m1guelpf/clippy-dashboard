@@ -14,18 +14,20 @@ export type ProjectPanelState = {
 	origins: string[]
 	setOrigins: (origins: string[]) => void
 
-	model_type: ModelType
+	model_type: ModelType | null
 	setModelType: (type: ModelType) => void
 
 	open: boolean
 	loading: boolean
-	reset: () => void
 	projectId: string | null
-	openFor: (projectId: string) => void
-	onProjectLoaded: (project: Project) => void
+
+	reset: () => void
+	setOpen: (open: boolean) => void
+	openFor: (project: Project) => void
 
 	updateProject: () => void
 	deleteProject: () => void
+	createProject: () => void
 }
 
 export const useProjectPanel = create<ProjectPanelState>((set, get) => ({
@@ -38,22 +40,28 @@ export const useProjectPanel = create<ProjectPanelState>((set, get) => ({
 	origins: [],
 	setOrigins: (origins: string[]) => set({ origins }),
 
-	model_type: ModelType.METAL,
+	model_type: null,
 	setModelType: (type: ModelType) => set({ model_type: type }),
 
 	open: false,
+	setOpen: (open: boolean) => set({ open }),
+
 	loading: false,
 	projectId: null,
 	reset: () => {
 		if (get().loading) return
 
-		set({ open: false, projectId: null, name: '', imageUrl: '', origins: [], model_type: ModelType.METAL })
+		set({ open: false, projectId: null, name: '', imageUrl: '', origins: [], model_type: null })
 	},
-	openFor: (id: string) => {
-		set({ open: true, projectId: id })
-	},
-	onProjectLoaded: (project: Project) => {
-		set({ name: project.name, imageUrl: project.imageUrl, origins: project.origins, model_type: project.modelType })
+	openFor: (project: Project) => {
+		set({
+			open: true,
+			name: project.name,
+			projectId: project.id,
+			origins: project.origins,
+			imageUrl: project.imageUrl,
+			model_type: project.modelType,
+		})
 	},
 	deleteProject: async () => {
 		set({ loading: true })
@@ -83,6 +91,21 @@ export const useProjectPanel = create<ProjectPanelState>((set, get) => ({
 
 		get().reset()
 	},
+	createProject: async () => {
+		set({ loading: true })
+
+		const teamId = selectedTeamStore.getState().selectedTeam
+		await api(`/team/${teamId}/projects`, 'POST', {
+			name: get().name,
+			origins: get().origins,
+			image_url: get().imageUrl,
+			model_type: get().model_type,
+		})
+
+		await mutate(`/team/${teamId}`)
+		set({ loading: false })
+		get().reset()
+	},
 }))
 
-export const getOpenFor = (store: ProjectPanelState) => store.openFor
+export const getOpen = (store: ProjectPanelState) => store.openFor
