@@ -41,7 +41,7 @@ const SlidePanel: FC<Props> = ({ open, onClose, title, subtitle, children, foote
 									as={onSubmit ? 'form' : 'div'}
 									className="pointer-events-auto w-screen h-screen p-2 max-w-md"
 								>
-									<div className="flex h-full flex-col overflow-y-scroll bg-white rounded-xl shadow-xl">
+									<div className="flex h-full flex-col bg-white overflow-hidden rounded-xl shadow-xl">
 										<div className="py-6 flex-1">
 											<div className="px-4 sm:px-6 pb-6 border-b">
 												<div className="flex items-start justify-between">
