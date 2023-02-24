@@ -1,8 +1,8 @@
 'use client'
 
+import { toast } from 'sonner'
 import { create } from 'zustand'
 import { api } from '@/lib/utils'
-import toast from 'react-hot-toast'
 import { SWRError } from '@/lib/swr'
 
 export type FeedbackModalState = {

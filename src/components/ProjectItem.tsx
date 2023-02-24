@@ -2,7 +2,7 @@
 
 import { FC } from 'react'
 import Link from 'next/link'
-import toast from 'react-hot-toast'
+import { toast } from 'sonner'
 import { Project } from '@/types/api'
 import { useRouter } from 'next/navigation'
 import DropdownMenu from '@/components/DropdownMenu'

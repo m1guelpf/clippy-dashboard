@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import toast from 'react-hot-toast'
+import { toast } from 'sonner'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/router'
 import Wordmark from './icons/Wordmark'
@@ -87,7 +87,7 @@ const Layout: FC<Props> = ({ pageTitle, children }) => {
 								</Link>
 								<span>/</span> <span className="text-black font-medium">{pageTitle}</span>
 							</div>
-							<button onClick={() => toast.error('Coming soon!')} className="p-1 rounded">
+							<button onClick={() => toast('Coming soon!')} className="p-1 rounded">
 								<MenuIcon className="w-6 h-6 text-gray-400" aria-hidden="true" />
 							</button>
 						</div>

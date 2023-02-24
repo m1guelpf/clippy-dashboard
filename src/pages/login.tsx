@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import toast from 'react-hot-toast'
+import { toast } from 'sonner'
 import { SWRError } from '@/lib/swr'
 import { motion } from 'framer-motion'
 import { api, wait } from '@/lib/utils'

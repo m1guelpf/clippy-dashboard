@@ -1,5 +1,5 @@
 import Avatar from './Avatar'
-import toast from 'react-hot-toast'
+import { toast } from 'sonner'
 import PlusIcon from './icons/PlusIcon'
 import { classNames } from '@/lib/utils'
 import { Listbox } from '@headlessui/react'
@@ -25,7 +25,7 @@ const TeamSwitcher = () => {
 	)
 
 	const onCreateTeam = useCallback(() => {
-		toast.error('Coming soon!')
+		toast('Coming soon!')
 		setOpen(false)
 	}, [])
 

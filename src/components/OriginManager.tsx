@@ -1,5 +1,5 @@
 import Button from './Button'
-import toast from 'react-hot-toast'
+import { toast } from 'sonner'
 import PlusIcon from './icons/PlusIcon'
 import TrashIcon from './icons/TrashIcon'
 import InputWithLabel from './InputWithLabel'
