@@ -1,8 +1,8 @@
 import { mutate } from 'swr'
 import { create } from 'zustand'
 import { api } from '@/lib/utils'
+import { Project } from '@/types/api'
 import selectedTeamStore from './selectedTeam'
-import { ModelType, Project } from '@/types/api'
 
 export type ProjectPanelState = {
 	name: string
@@ -13,9 +13,6 @@ export type ProjectPanelState = {
 
 	origins: string[]
 	setOrigins: (origins: string[]) => void
-
-	model_type: ModelType | null
-	setModelType: (type: ModelType) => void
 
 	open: boolean
 	loading: boolean
@@ -40,9 +37,6 @@ export const useProjectPanel = create<ProjectPanelState>((set, get) => ({
 	origins: [],
 	setOrigins: (origins: string[]) => set({ origins }),
 
-	model_type: null,
-	setModelType: (type: ModelType) => set({ model_type: type }),
-
 	open: false,
 	setOpen: (open: boolean) => set({ open }),
 
@@ -51,7 +45,7 @@ export const useProjectPanel = create<ProjectPanelState>((set, get) => ({
 	reset: () => {
 		if (get().loading) return
 
-		set({ open: false, projectId: null, name: '', imageUrl: '', origins: [], model_type: null })
+		set({ open: false, projectId: null, name: '', imageUrl: '', origins: [] })
 	},
 	openFor: (project: Project) => {
 		set({
@@ -60,7 +54,6 @@ export const useProjectPanel = create<ProjectPanelState>((set, get) => ({
 			projectId: project.id,
 			origins: project.origins,
 			imageUrl: project.imageUrl,
-			model_type: project.modelType,
 		})
 	},
 	deleteProject: async () => {
@@ -81,7 +74,6 @@ export const useProjectPanel = create<ProjectPanelState>((set, get) => ({
 			name: get().name,
 			origins: get().origins,
 			image_url: get().imageUrl,
-			model_type: get().model_type,
 		})
 
 		set({ loading: false })
@@ -99,7 +91,6 @@ export const useProjectPanel = create<ProjectPanelState>((set, get) => ({
 			name: get().name,
 			origins: get().origins,
 			image_url: get().imageUrl,
-			model_type: get().model_type,
 		})
 
 		await mutate(`/team/${teamId}`)

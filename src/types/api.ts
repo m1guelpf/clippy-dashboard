@@ -20,11 +20,6 @@ export type Team = {
 export type TeamWithMembers = Team & { members: User[] }
 export type TeamWithProjects = Team & { projects: Project[] }
 
-export enum ModelType {
-	Metal = 'Metal',
-	Plastic = 'Plastic',
-}
-
 export enum ProjectStatus {
 	Pending = 'Pending',
 	Trained = 'Trained',
@@ -34,7 +29,6 @@ export type Project = {
 	id: string
 	teamId: string
 	indexName: string
-	modelType: ModelType
 	status: ProjectStatus
 
 	name: string
